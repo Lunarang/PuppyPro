@@ -1,6 +1,7 @@
 <h1>Welcome <%= @user.name %></h1>
 <br/>
 
+#How can I make the user profile sidebar visible on everypage as long as user is logged in?
 <div class="sidebar">
     <h3><%= @user.name %></h3>
     <a href="/users/:id/edit">( click here to edit your profile info )</a>
@@ -26,6 +27,7 @@
         <% @user.dogs.each do |dog| %>
             <div class="info card">
 
+            #Create ".age" method for Dog Class that calculates age by DOB
             <h3><a href="/dogs/<%= dog.id %>" method="GET"><%= dog.name %></a></h3>
             <p>Sex:<%= dog.sex %> Birthday:<%= dog.dob %> Age:<%= dog.age %></p>
 
@@ -47,10 +49,11 @@
                 #LIMIT VIEW TO 3 UNMASTERED SKILLS
                 <dl>
                 <% dog.skills.each do |skill| %>
+
+                    #Create ".level" method for Skill class that references appropriate Tracker object
                     <% if skill.level != "Expert" %>
                         <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
                         <dd><%= skill.level %></dd>
-                        <dd><%= skill.description %></dd>
                     <% end %>
                 <% end %>
                 </dl>
@@ -60,15 +63,19 @@
             <% end %>
 
             <h4>Mastery Timeline</h4>
+            #LIMIT VIEW TO LAST 5 MOST RECENTLY MASTERED SKILLS
+
             <div class="timeline">
 
-                #LIMIT VIEW TO LAST 5 MOST RECENTLY MASTERED SKILLS
+                #Create ".mastered_skills" method for Dog Class that creates an array of instance's skills with the level "Expert"
                 <% dog.mastered_skills do |skill| %>
                     <% index = 0 %>
                     <% until index == 5 %>
                         <div class="container left">
                             <div class="content">
                                 <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
+                                
+                                #Create ".date_mastered" method for Skill Class referencing Tracker's last timestamp
                                 <p><%= skill[index].date_mastered %></p>
                             </div>
                         </div>

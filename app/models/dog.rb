@@ -5,4 +5,8 @@ class Dog < ActiveRecord::Base
 
     validates :name, presence: true
     
+    def age
+        
+    end
+
 end

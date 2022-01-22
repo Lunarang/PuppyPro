@@ -1,0 +1,104 @@
+<h1>Welcome <%= @user.name %></h1>
+<br/>
+
+<div class="sidebar">
+    <h3><%= @user.name %></h3>
+    <a href="/users/:id/edit">( click here to edit your profile info )</a>
+    <ul>
+        <li><a href="/home">Puppies</a></li>
+        <li><a href="/library">Skill Library</a></li>
+        <li><a href="/logout">Log Out</a></li>
+    </ul>
+</div>
+
+<div class="content">
+    <h2>Your Pups:</h2>
+
+    <% if @user.dogs.blank? %>
+
+        <p>Uh oh! Looks like you don't have any puppies yet!</p>
+        <form action="/dogs/new" method="GET">
+        <input type="submit" value="Add Puppy!">
+        </form>
+
+    <% else %>
+
+        <% @user.dogs.each do |dog| %>
+            <div class="info card">
+
+            <h3><a href="/dogs/<%= dog.id %>" method="GET"><%= dog.name %></a></h3>
+            <p>Sex:<%= dog.sex %> Birthday:<%= dog.dob %> Age:<%= dog.age %></p>
+
+            <h4>Skills</h4>
+            <% if dog.skills.blank? %>
+
+                <p>Your dog doesn't have any mad skills yet! Let's teach them a new trick by creating a skill or adding one from the Skill Library...
+                    <form action="/skills/new" method="GET">
+                    <input type="submit" value="Create Skill">
+                    </form>
+                    
+                    <form action="/dogs/<%= dog.id %>/edit" method="GET">
+                    <input type="submit" value="Add Skill">
+                    </form>
+                </p>
+
+            <% else %>
+
+                #LIMIT VIEW TO 3 UNMASTERED SKILLS
+                <dl>
+                <% dog.skills.each do |skill| %>
+                    <% if skill.level != "Expert" %>
+                        <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
+                        <dd><%= skill.level %></dd>
+                        <dd><%= skill.description %></dd>
+                    <% end %>
+                <% end %>
+                </dl>
+
+                <a href="/dogs/<%= dog.id %>">view all skills</a>
+
+            <% end %>
+
+            <h4>Mastery Timeline</h4>
+            <div class="timeline">
+
+                #LIMIT VIEW TO LAST 5 MOST RECENTLY MASTERED SKILLS
+                <% dog.mastered_skills do |skill| %>
+                    <% index = 0 %>
+                    <% until index == 5 %>
+                        <div class="container left">
+                            <div class="content">
+                                <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
+                                <p><%= skill[index].date_mastered %></p>
+                            </div>
+                        </div>
+                        <% index += 1 %>
+                        <div class="container right">
+                            <div class="content">
+                                <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
+                                <p><%= skill[index].date_mastered %></p>
+                            </div>
+                        </div>
+                        <% index += 1 %>
+                    <% end %>
+                <% end %>
+
+            </div>
+
+            <form action="/dogs/<%= dog.id %>" method="GET">
+            <input type="submit" value="View Profile" />
+            </form>
+        <% end %>
+
+    <% end %>
+
+    <% if !@user.dogs.blank? %>
+
+        <form action="/dogs/new" method="GET">
+            <input type="submit" value="Add ANOTHER Puppy!" />
+        </form>
+    
+    <% end %>
+
+</div>
+<br/>

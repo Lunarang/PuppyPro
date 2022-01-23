@@ -1,0 +1,23 @@
+<h1>Skill Record</h1>
+
+<h2><%= @skill.name %></h2>
+Description: <%= @skill.description %>
+Method: <%= @skill.method %>
+
+<h3>Trained Pups</h3>
+<ul>
+    <% @skill.dogs.select { |dog| dog.user_id == @user.id }
+    .each do |dog| %>
+    <li><%= dog.name %></li>
+    <ul>
+        <li>Mastery Level: <%= @skill.level(dog.id) %> </li>
+    </ul>
+    <% end %>
+</ul>
+
+<a href="/skills/<%= @skill.id %>/edit" method="GET">Edit Skill</a>
+
+<form method="POST" action="/skills/<%= @skill.id %>">
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete Skill" />
+</form>

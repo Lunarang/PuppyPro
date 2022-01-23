@@ -1,10 +1,11 @@
-<h1><%= @dog.name %></h1>
+<h1>Puppy Profile</h1>
 
+<h2><%= @dog.name %></h2>
 Sex: <%= @dog.sex %>
 Birthday: <%= @dog.dob %>
 Age: <%= @dog.age %>
 
-<h2>Acquired Skills</h2>
+<h3>Acquired Skills</h3>
 
 <dl>
     <% @dog.skills.each do |skill| %>

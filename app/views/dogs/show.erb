@@ -1,0 +1,25 @@
+<h1><%= @dog.name %></h1>
+
+Sex: <%= @dog.sex %>
+Birthday: <%= @dog.dob %>
+Age: <%= @dog.age %>
+
+<h2>Acquired Skills</h2>
+
+<dl>
+    <% @dog.skills.each do |skill| %>
+        <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
+        <dd><%= skill.level(@dog.id) %></dd>
+        <dd><%= skill.description %></dd>
+        <dd><%= skill.method %></dd>
+
+    <% end %>
+</dl>
+
+<a href="/dogs/<%= @dog.id %>/edit" method="GET">Edit Puppy</a>
+
+
+<form method="POST" action="/dogs/<%= @dog.id %>">
+  <input type="hidden" name="_method" value="DELETE" />
+  <input type="submit" value="Delete Puppy" />
+</form>

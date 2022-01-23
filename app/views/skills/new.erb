@@ -1,0 +1,44 @@
+<h1>Create New Skill</h1>
+
+<form action='/skills/new' method="POST">
+
+    <label for="name">Skill Name:</label>
+    <input type="text" id="name" name="skill[name]" required>
+
+    <label for="level">Mastery Level:</label>
+    <select name="skill[level]" id="level">
+        <option value="novice" selected>Novice</option>
+        <option value="beginner">Beginner</option>
+        <option value="competent">Competent</option>
+        <option value="proficient">Proficient</option>
+        <option value="expert">Expert</option>
+    </select>
+
+    <label for="skilldesc">Description:</label>
+    <input type="text" id="skilldesc" name="skill[description]" required>
+
+    <label for="skillmethod">Method:</label>
+    <textarea id="skillmethod" name="skill[method]"
+        rows="5" cols="33" wrap="hard" 
+        placeholder="What are the steps to teach your dog this skill? (optional)">
+    </textarea>
+
+    <fieldset>
+        <legend>Choose which of your dogs know this skill...</legend>
+        <% @user.dogs.each do |dog| %>
+            <input type="checkbox" name="skill[dog_ids][]" id="dog" value="<%= dog.id %>">
+            <label for="dog"><%= dog.name %></label>
+
+            <label for="level">Choose skill mastery level:</label>
+            <select name="dogskill[<%= dog.id %>]" id="level">
+                <option value="novice" selected>Novice</option>
+                <option value="beginner">Beginner</option>
+                <option value="competent">Competent</option>
+                <option value="proficient">Proficient</option>
+                <option value="expert">Expert</option>
+            </select>
+        <% end %>
+    </fieldset>
+
+    <input type="submit" value="Create Skill">
+</form>

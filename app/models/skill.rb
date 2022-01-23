@@ -1,7 +1,7 @@
 class Skill < ActiveRecord::Base
     belongs_to :user
-    has_many :trackers
-    has_many :dogs, through: :trackers
+    has_many :dog_skills
+    has_many :dogs, through: :dog_skills
 
     validates :name, presence: true
     validates :description, presence: true
@@ -17,6 +17,19 @@ class Skill < ActiveRecord::Base
         Skill.create(name: "Down", description: "Lay down!", user_id: "#{user.id}")
         Skill.create(name: "Play Dead", description: "Pow! Pow! Keel over puppy!", user_id: "#{user.id}")
         Skill.create(name: "Spin", description: "Let's make circles until we're happy and dizzy!", user_id: "#{user.id}")
+    end
+
+    def level(dog_id)
+        DogSkill.find_by(dog_id: dog_id, skill_id: self.id).level
+    end
+
+    def date_mastered(dog_id)
+        if self.level == "Expert"
+            day = DogSkill.find_by(dog_id: dog_id, skill_id: self.id).updated_at
+            day.strftime("%B %d, %Y")
+        else
+            puts "Your dog has not yet mastered this skill!"
+        end
     end
 
 end

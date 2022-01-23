@@ -27,7 +27,7 @@
         <% @user.dogs.each do |dog| %>
             <div class="info card">
 
-            #Create ".age" method for Dog Class that calculates age by DOB
+            #COMPLETED - Create ".age" method for Dog Class that calculates age by DOB
             <h3><a href="/dogs/<%= dog.id %>" method="GET"><%= dog.name %></a></h3>
             <p>Sex:<%= dog.sex %> Birthday:<%= dog.dob %> Age:<%= dog.age %></p>
 
@@ -46,14 +46,16 @@
 
             <% else %>
 
+                <% @dog_id = dog.id %>
+
                 #LIMIT VIEW TO 3 UNMASTERED SKILLS
                 <dl>
                 <% dog.skills.each do |skill| %>
 
-                    #Create ".level" method for Skill class that references appropriate Tracker object
-                    <% if skill.level != "Expert" %>
+                    #COMPLETED - Create ".level" method for Skill class referencing DogSkill Table
+                    <% if skill.level(@dog_id) != "Expert" %>
                         <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
-                        <dd><%= skill.level %></dd>
+                        <dd><%= skill.level(@dog_id) %></dd>
                     <% end %>
                 <% end %>
                 </dl>
@@ -67,7 +69,7 @@
 
             <div class="timeline">
 
-                #Create ".mastered_skills" method for Dog Class that creates an array of instance's skills with the level "Expert"
+                #COMPLETED - Create ".mastered_skills" method for Dog Class that creates an array of instance's skills with the level "Expert"
                 <% dog.mastered_skills do |skill| %>
                     <% index = 0 %>
                     <% until index == 5 %>
@@ -75,7 +77,7 @@
                             <div class="content">
                                 <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
                                 
-                                #Create ".date_mastered" method for Skill Class referencing Tracker's last timestamp
+                                #COMPLETED - Create ".date_mastered" method for Skill Class referencing DogSkill's last timestamp
                                 <p><%= skill[index].date_mastered %></p>
                             </div>
                         </div>

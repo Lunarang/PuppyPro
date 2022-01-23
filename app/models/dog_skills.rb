@@ -1,4 +1,4 @@
-class Tracker < ActiveRecord::Base
+class DogSkill < ActiveRecord::Base
     belongs_to :dog
     belongs_to :skill
 

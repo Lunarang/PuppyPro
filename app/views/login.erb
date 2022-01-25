@@ -1,5 +1,16 @@
 <h1>Log in below:</h1>
 
+<% if @user.errors.any? %>
+  <div id="error_messages">
+    <h2>Login Failed:</h2>
+    <ul>
+      <% @errors.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
 <form action='/login' method="POST">
 
   <label for="email">Email:</label>

@@ -1,0 +1,16 @@
+<h1>Current Users:</h1>
+
+# Alphabetize user list before giving to view...
+<% User.all.each do |user| %>
+    <ul>
+        <li><a href="/users/<%= user.id %>"><%= user.name %></a></li>
+            <dl>
+                <dt>Pups</dt>
+                <% user.dogs.each do |dog| %>
+                    <dd>
+                    <a href="/dogs/<%= dog.id %>"><%= dog.name %></a>
+                    </dd>
+                <% end %>
+            </dl> 
+    </ul>
+<% end %>

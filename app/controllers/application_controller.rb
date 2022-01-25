@@ -20,8 +20,17 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup" do
-    #if successful, redirect '/home'
-    #else, flash error & reload page
+    #if successful, redirect '/home'... else, flash error & reload page
+    @user = User.new(params["user"])
+    if @user.valid?
+      @user.save
+      session[:user_id] = @user.id
+
+      redirect '/home'
+    else
+      @errors = @user.errors.full_messages
+      erb :signup
+    end
   end
 
 #Log In Form
@@ -30,17 +39,32 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/login" do
-    #if successful, redirect '/home'
-    #else, flash error & reload page
+    #if successful, redirect '/home'... else, flash error & reload page
+    @user = User.find_by(email: params["email"])
+    if @user && @user.authenticate(params["password"])
+      session[:user_id] = @user.id
+
+      redirect to '/home'
+    else
+      @errors = @user.errors.full_messages
+      erb :login
+    end
   end
 
-#User Homepage (doubles as User Profile & Dog Index)
+#User Homepage
   get "/home" do
-    erb :home
+    @user = current_user
+    if logged_in?
+      erb :home
+    else
+      redirect '/login'
+    end
   end
 
 #Clear Session
   post "/logout" do
+    session.clear
+    redirect '/'
   end
   
 #Controller Helpers

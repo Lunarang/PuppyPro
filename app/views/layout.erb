@@ -15,6 +15,13 @@
   </head>
   <body>
     <div class="wrapper">
+        <% %w[notice error warning alert info].each do |key| %>
+          <% if flash[key] %>
+            <div id="#{key}" class="flash">
+              <%= flash[key] %>
+            </div>
+          <% end %>
+        <% end %>
 
         <%= yield %>
 

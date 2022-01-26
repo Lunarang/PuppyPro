@@ -21,7 +21,7 @@ class ApplicationController < Sinatra::Base
   end
 
   post "/signup" do
-    #if successful, redirect '/home'... else, flash error & reload page
+    #if successful, redirect '/home'... else, flash error
     @user = User.new(params["user"])
     if @user.valid?
       @user.save
@@ -29,36 +29,37 @@ class ApplicationController < Sinatra::Base
 
       redirect '/home'
     else
-      @errors = @user.errors.full_messages
+      #using Active Records error hash for form validation errors
+      flash[:error] = @user.errors.full_messages
+
     end
   end
 
 #Log In Form
   get "/login" do
+    flash[:notice]
     erb :login
   end
 
   post "/login" do
-    #if successful, redirect '/home'... else, flash error & reload page
+    #if successful, redirect '/home'... else, flash error
     @user = User.find_by(email: params["email"])
     if @user && @user.authenticate(params["password"])
       session[:user_id] = @user.id
 
       redirect to '/home'
     else
-      @errors = @user.errors.full_messages
-      erb :login
+      flash[:notice] = "Email or Password does not match. Please try again:"
+      redirect to '/home'
     end
   end
 
 #User Homepage
   get "/home" do
-    @user = current_user
-    if logged_in?
-      erb :home
-    else
-      redirect '/login'
-    end
+    login_required
+
+    current_user
+    erb :home
   end
 
 #Clear Session
@@ -74,7 +75,7 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      User.find_by_id(session[:user_id])
+      @user = User.find_by_id(session[:user_id])
     end 
 
     def login_required

@@ -1,6 +1,6 @@
 class Dog < ActiveRecord::Base
     belongs_to :user
-    has_many :dog_skills
+    has_many :dog_skills, :dependent => :destroy
     has_many :skills, through: :dog_skills
 
     validates :name, presence: true
@@ -13,7 +13,7 @@ class Dog < ActiveRecord::Base
     def mastered_skills
         mastered_skills = []
         self.skills.each do |skill|
-            mastered_skills << skill if skill.level(self.id) == "Expert"
+            mastered_skills << skill if skill.level(self.id) == "expert"
         end
         mastered_skills
     end

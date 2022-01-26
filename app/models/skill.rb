@@ -1,6 +1,6 @@
 class Skill < ActiveRecord::Base
     belongs_to :user
-    has_many :dog_skills
+    has_many :dog_skills, :dependent => :destroy
     has_many :dogs, through: :dog_skills
 
     validates :name, presence: true
@@ -24,7 +24,7 @@ class Skill < ActiveRecord::Base
     end
 
     def date_mastered(dog_id)
-        if self.level == "Expert"
+        if self.level == "expert"
             day = DogSkill.find_by(dog_id: dog_id, skill_id: self.id).updated_at
             day.strftime("%B %d, %Y")
         else

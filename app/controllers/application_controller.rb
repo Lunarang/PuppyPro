@@ -7,6 +7,7 @@ class ApplicationController < Sinatra::Base
     set :views, 'app/views'
     enable :sessions
     set :session_secret, 'secret'
+    use Rack::Flash
   end
 
 #Landing Page
@@ -29,7 +30,6 @@ class ApplicationController < Sinatra::Base
       redirect '/home'
     else
       @errors = @user.errors.full_messages
-      erb :signup
     end
   end
 
@@ -76,6 +76,10 @@ class ApplicationController < Sinatra::Base
     def current_user
       User.find_by_id(session[:user_id])
     end 
+
+    def login_required
+      redirect '/login' unless logged_in?
+    end
 
   end
 end

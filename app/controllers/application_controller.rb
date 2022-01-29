@@ -10,16 +10,17 @@ class ApplicationController < Sinatra::Base
     use Rack::Flash
   end
 
-#Landing Page
+# Landing Page
   get "/" do
     erb :welcome
   end
 
-#Sign Up Form
+# Sign Up Form - GET
   get "/signup" do
     erb :signup
   end
 
+# Sign Up Form - POST
   post "/signup" do
     #if successful, redirect '/home'... else, flash error
     @user = User.new(params["user"])
@@ -31,16 +32,16 @@ class ApplicationController < Sinatra::Base
     else
       #using Active Records error hash for form validation errors
       flash[:error] = @user.errors.full_messages
-
+      redirect '/signup'
     end
   end
 
-#Log In Form
+# Log In Form - GET
   get "/login" do
-    flash[:notice]
     erb :login
   end
 
+# Log In Form - POST
   post "/login" do
     #if successful, redirect '/home'... else, flash error
     @user = User.find_by(email: params["email"])
@@ -50,25 +51,33 @@ class ApplicationController < Sinatra::Base
       redirect to '/home'
     else
       flash[:notice] = "Email or Password does not match. Please try again:"
-      redirect to '/home'
+      redirect to '/login'
     end
   end
 
-#User Homepage
+# User Homepage
   get "/home" do
     login_required
-
     current_user
+
     erb :home
   end
 
-#Clear Session
-  post "/logout" do
+# User Skill Library
+  get "/library" do
+    login_required
+    current_user
+
+    erb :library
+  end
+
+# Clear Session
+  get "/logout" do
     session.clear
     redirect '/'
   end
   
-#Controller Helpers
+# Controller Helpers
   helpers do
     def logged_in?
       !!session[:user_id]

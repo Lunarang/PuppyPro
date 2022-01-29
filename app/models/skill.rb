@@ -20,7 +20,8 @@ class Skill < ActiveRecord::Base
     end
 
     def level(dog_id)
-        DogSkill.find_by(dog_id: dog_id, skill_id: self.id).level
+        dogskill = DogSkill.find_by(dog_id: dog_id, skill_id: self.id)
+        dogskill.level if dogskill
     end
 
     def date_mastered(dog_id)

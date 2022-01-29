@@ -1,6 +1,13 @@
 <h1>Puppy Profile</h1>
 
+<% if Helpers.belong_to_user?(session) %>
+<a href="/dogs/<%= @dog.id %>/edit" method="GET">Edit Puppy</a>
+<% end %>
+
 <h2><%= @dog.name %></h2>
+<% if !Helpers.belong_to_user?(session) %>
+Owner: <%= @owner.name %>
+<% end %>
 Sex: <%= @dog.sex %>
 Birthday: <%= @dog.dob %>
 Age: <%= @dog.age %>
@@ -17,10 +24,9 @@ Age: <%= @dog.age %>
     <% end %>
 </dl>
 
-<a href="/dogs/<%= @dog.id %>/edit" method="GET">Edit Puppy</a>
-
-
-<form method="POST" action="/dogs/<%= @dog.id %>">
-  <input type="hidden" name="_method" value="DELETE" />
-  <input type="submit" value="Delete Puppy" />
-</form>
+<% if Helpers.belong_to_user?(session) %>
+  <form method="POST" action="/dogs/<%= @dog.id %>">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete Puppy" />
+  </form>
+<% end %>

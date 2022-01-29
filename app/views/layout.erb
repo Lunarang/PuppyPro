@@ -13,15 +13,46 @@
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
   </head>
+
   <body>
     <div class="wrapper">
-        <% %w[notice error warning alert info].each do |key| %>
-          <% if flash[key] %>
-            <div id="#{key}" class="flash">
-              <%= flash[key] %>
-            </div>
-          <% end %>
+
+      <div class="sidebar">
+        <% if Helpers.is_logged_in?(session) %>
+          <% user = Helpers.current_user(session) %>
+
+          <h3><%= user.name %></h3>
+          <a href="/users/<%= user.id %>/edit">Edit Account</a>
+
+          <ul>
+              <li><a href="/home">Puppies</a></li>
+              <li><a href="/library">Skill Library</a></li>
+              <li><a href="/logout">Log Out</a></li>
+          </ul>
+
+        <% else %>
+
+          <h3>Welcome!</h3>
+          <p>To continue, please sign up or log in.</p>
+
+          <form action="/signup" method="GET">
+            <input type="submit" value="Sign Up">
+          </form>
+
+          <form action="/login" method="GET">
+            <input type="submit" value="Log In">
+          </form>
+          
         <% end %>
+      </div>
+
+      <% %w[notice error warning alert info].each do |key| %>
+        <% if flash[key] %>
+          <div id="#{key}" class="flash">
+            <%= flash[key] %>
+          </div>
+        <% end %>
+      <% end %>
 
         <%= yield %>
 

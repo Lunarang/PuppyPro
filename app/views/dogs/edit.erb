@@ -8,7 +8,7 @@
 
     <fieldset>
         <legend>Sex:</legend>
-        
+
             <input type="radio" id="male" name="dog[sex]" value="male"<% if @dog.sex.downcase == "male" %>checked="checked"<% end %> required>
             <label for="male">Male</label>
 
@@ -23,17 +23,17 @@
         <legend>Acquired Skills:</legend>
 
         <% @user.skills.each do |skill| %>
-            <input type="checkbox" id="skill" name="dog[skill_ids][]" value="<%= skill.id %>" 
+            <input type="checkbox" id="skill" name="dogskill[skill_ids][]" value="<%= skill.id %>" 
             <% if @dog.skills.include?(skill) %>checked<% end %> >
             <label for="skill"><%= skill.name %></label>
 
             <label for="level">Choose skill mastery level:</label>
             <select name="dogskill[<%= skill.id %>]" id="level">
-                <option value="novice" <% if skill.level(@dog.id).downcase == "novice" %>selected<% end %> >Novice</option>
-                <option value="beginner" <% if skill.level(@dog.id).downcase == "beginner" %>selected<% end %> >Beginner</option>
-                <option value="competent" <% if skill.level(@dog.id).downcase == "competent" %>selected<% end %> >Competent</option>
-                <option value="proficient" <% if skill.level(@dog.id).downcase == "proficient" %>selected<% end %> >Proficient</option>
-                <option value="expert" <% if skill.level(@dog.id).downcase == "expert" %>selected<% end %> >Expert</option>
+                <option value="novice" <% if skill.level(@dog.id) == "novice" %>selected<% end %> >Novice</option>
+                <option value="beginner" <% if skill.level(@dog.id) == "beginner" %>selected<% end %> >Beginner</option>
+                <option value="competent" <% if skill.level(@dog.id) == "competent" %>selected<% end %> >Competent</option>
+                <option value="proficient" <% if skill.level(@dog.id) == "proficient" %>selected<% end %> >Proficient</option>
+                <option value="expert" <% if skill.level(@dog.id) == "expert" %>selected<% end %> >Expert</option>
             </select>
         <% end %>
     </fieldset>

@@ -16,14 +16,14 @@
     <label for="dob">Date of Birth:</label>
     <input type="date" id="dob" name="dog[dob]" required>
 
-#COMPLETED - Add a way to choose skill level
     <label for="skills">Acquired Skills:</label>
     <% @user.skills.each do |skill| %>
-        <input type="checkbox" id="skills" name="dog[skill_ids][]" value="<%= skill.id %>"><%= skill.name %></input>
+        <input type="checkbox" id="skills" name="dogskill[skill_ids][]" value="<%= skill.id %>"><%= skill.name %></input>
 
         <label for="level">Choose skill mastery level:</label>
-        <select name="dogskill[<%= skill.id %>]" id="level">
-            <option value="novice" selected>Novice</option>
+        <select name="dogskill[skill_lvls][<%= skill.id %>]" id="level">
+            <option value="none" selected>Choose Proficiency</option>
+            <option value="novice">Novice</option>
             <option value="beginner">Beginner</option>
             <option value="competent">Competent</option>
             <option value="proficient">Proficient</option>

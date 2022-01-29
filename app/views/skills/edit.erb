@@ -24,11 +24,11 @@
 
             <label for="level">Choose skill mastery level:</label>
             <select name="dogskill[<%= dog.id %>]" id="level">
-                <option value="novice" <% if @skill.level(@dog.id) == "Novice" %>selected<% end %> >Novice</option>
-                <option value="beginner" <% if @skill.level(@dog.id) == "Beginner" %>selected<% end %> >Beginner</option>
-                <option value="competent" <% if @skill.level(@dog.id) == "Competent" %>selected<% end %> >Competent</option>
-                <option value="proficient" <% if @skill.level(@dog.id) == "Proficient" %>selected<% end %> >Proficient</option>
-                <option value="expert" <% if @skill.level(@dog.id) == "Expert" %>selected<% end %> >Expert</option>
+                <option value="novice" <% if @skill.level(@dog.id) == "novice" %>selected<% end %> >Novice</option>
+                <option value="beginner" <% if @skill.level(@dog.id) == "beginner" %>selected<% end %> >Beginner</option>
+                <option value="competent" <% if @skill.level(@dog.id) == "competent" %>selected<% end %> >Competent</option>
+                <option value="proficient" <% if @skill.level(@dog.id) == "proficient" %>selected<% end %> >Proficient</option>
+                <option value="expert" <% if @skill.level(@dog.id) == "expert" %>selected<% end %> >Expert</option>
             </select>
         <% end %>
     </fieldset>

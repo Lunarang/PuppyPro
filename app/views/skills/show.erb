@@ -1,6 +1,13 @@
 <h1>Skill Record</h1>
 
+<% if Helpers.belong_to_user?(session) %>
+<a href="/skills/<%= @skill.id %>/edit" method="GET">Edit Skill</a>
+<% end %>
+
 <h2><%= @skill.name %></h2>
+<% if !Helpers.belong_to_user?(session) %>
+Creator: <%= @creator.name %>
+<% end %>
 Description: <%= @skill.description %>
 Method: <%= @skill.method %>
 
@@ -15,9 +22,9 @@ Method: <%= @skill.method %>
     <% end %>
 </ul>
 
-<a href="/skills/<%= @skill.id %>/edit" method="GET">Edit Skill</a>
-
-<form method="POST" action="/skills/<%= @skill.id %>">
-  <input type="hidden" name="_method" value="DELETE" />
-  <input type="submit" value="Delete Skill" />
-</form>
+<% if Helpers.belong_to_user?(session) %>
+  <form method="POST" action="/skills/<%= @skill.id %>">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete Skill" />
+  </form>
+<% end %>

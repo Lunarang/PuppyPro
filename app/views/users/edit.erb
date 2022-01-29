@@ -23,7 +23,7 @@
     <fieldset>
         <legend>My Skills:</legend>
             <% @user.skills.each do |skill| %>
-                <input type="checkbox" name="userskills[skill_ids][]" id="skill" value="<%= skill.id %>" checked>
+                <input type="checkbox" name="user[skill_ids][]" id="skill" value="<%= skill.id %>" checked>
                 <label for="skill"><%= skill.name %></label>
             <% end %>
     </fieldset>

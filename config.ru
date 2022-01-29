@@ -6,3 +6,7 @@ end
 
 use Rack::MethodOverride
 run ApplicationController
+use DogsController
+use SkillsController
+use UsersController
+

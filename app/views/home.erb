@@ -1,17 +1,6 @@
 <h1>Welcome <%= @user.name %></h1>
 <br/>
 
-#How can I make the user profile sidebar visible on everypage as long as user is logged in?
-<div class="sidebar">
-    <h3><%= @user.name %></h3>
-    <a href="/users/:id/edit">( click here to edit your profile info )</a>
-    <ul>
-        <li><a href="/home">Puppies</a></li>
-        <li><a href="/library">Skill Library</a></li>
-        <li><a href="/logout">Log Out</a></li>
-    </ul>
-</div>
-
 <div class="content">
     <h2>Your Pups:</h2>
 
@@ -27,12 +16,15 @@
         <% @user.dogs.each do |dog| %>
             <div class="info card">
 
-            #COMPLETED - Create ".age" method for Dog Class that calculates age by DOB
             <h3><a href="/dogs/<%= dog.id %>" method="GET"><%= dog.name %></a></h3>
-            <p>Sex:<%= dog.sex %> Birthday:<%= dog.dob %> Age:<%= dog.age %></p>
+            <dl>
+                <dt>Sex</dt> <dd><%= dog.sex %></dd>
+                <dt>Birthday</dt> <dd><%= dog.dob %></dd>
+                <dt>Age</dt> <dd><%= dog.age %></dd>
+            </dl>
 
             <h4>Skills</h4>
-            <% if dog.skills.blank? %>
+            <% if dog.skills == [] %>
 
                 <p>Your dog doesn't have any mad skills yet! Let's teach them a new trick by creating a skill or adding one from the Skill Library...
                     <form action="/skills/new" method="GET">
@@ -48,12 +40,10 @@
 
                 <% @dog_id = dog.id %>
 
-                #LIMIT VIEW TO 3 UNMASTERED SKILLS
                 <dl>
                 <% dog.skills.each do |skill| %>
 
-                    #COMPLETED - Create ".level" method for Skill class referencing DogSkill Table
-                    <% if skill.level(@dog_id) != "Expert" %>
+                    <% if skill.level(@dog_id) != "expert" %>
                         <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
                         <dd><%= skill.level(@dog_id) %></dd>
                     <% end %>
@@ -65,11 +55,9 @@
             <% end %>
 
             <h4>Mastery Timeline</h4>
-            #COMPLETED - LIMIT VIEW TO LAST 5 MOST RECENTLY MASTERED SKILLS
 
             <div class="timeline">
 
-                #COMPLETED - Create ".mastered_skills" method for Dog Class that creates an array of instance's skills with the level "Expert"
                 <% dog.mastered_skills do |skill| %>
                     <% index = 0 %>
                     <% until index == 5 %>
@@ -77,7 +65,6 @@
                             <div class="content">
                                 <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
                                 
-                                #COMPLETED - Create ".date_mastered" method for Skill Class referencing DogSkill's last timestamp
                                 <p><%= skill[index].date_mastered %></p>
                             </div>
                         </div>

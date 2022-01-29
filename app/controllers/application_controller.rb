@@ -57,16 +57,14 @@ class ApplicationController < Sinatra::Base
 
 # User Homepage
   get "/home" do
-    login_required
-    current_user
+    verify_user_login
 
     erb :home
   end
 
 # User Skill Library
   get "/library" do
-    login_required
-    current_user
+    verify_user_login
 
     erb :library
   end
@@ -84,11 +82,16 @@ class ApplicationController < Sinatra::Base
     end
 
     def current_user
-      @user = User.find_by_id(session[:user_id])
+      User.find_by_id(session[:user_id])
     end 
 
-    def login_required
-      redirect '/login' unless logged_in?
+    def verify_user_login
+      if logged_in?
+        @user = current_user
+      else
+        redirect '/login'
+      end
+      @user
     end
 
   end

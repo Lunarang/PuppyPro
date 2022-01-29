@@ -18,7 +18,7 @@
     <div class="wrapper">
 
       <div class="sidebar">
-        <% if Helpers.is_logged_in?(session) %>
+        <% if Helpers.logged_in?(session) %>
           <% user = Helpers.current_user(session) %>
 
           <h3><%= user.name %></h3>
@@ -42,7 +42,7 @@
           <form action="/login" method="GET">
             <input type="submit" value="Log In">
           </form>
-          
+
         <% end %>
       </div>
 

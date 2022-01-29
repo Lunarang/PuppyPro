@@ -1,8 +1,12 @@
-<h1><%= @user.name %>'s Profile</h1>
+<h1><%= @shown_user.name %>'s Profile</h1>
+
+<% if Helpers.belong_to_user?(session) %>
+<a href="/users/<%= @shown_user.id %>/edit" method="GET">Edit Profile</a>
+<% end %>
 
 <h2>Pups</h2>
 <ul>
-    <% @user.dogs.each do |dog| %>
+    <% @shown_user.dogs.each do |dog| %>
     <li><a href="/dogs/<%= dog.id %>"><%= dog.name %></a></li>
         <dl>
             <dt>Sex</dt> <dd><%= @dog.sex %></dd>
@@ -15,16 +19,15 @@
 
 <h2>Skills</h2>
 <dl>
-    <% @user.skills.each do |skill| %>
+    <% @shown_user.skills.each do |skill| %>
         <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
         <dd><%= skill.description %></dd>
     <% end %>
 </dl>
 
-# viewable only if current user = user id
-<a href="/users/<%= @user.id %>/edit" method="GET">Edit Profile</a>
-
-<form method="POST" action="/users/<%= @user.id %>">
-  <input type="hidden" name="_method" value="DELETE" />
-  <input type="submit" value="Delete Account" />
-</form>
+<% if Helpers.belong_to_user?(session) %>
+    <form method="POST" action="/users/<%= @shown_user.id %>">
+    <input type="hidden" name="_method" value="DELETE" />
+    <input type="submit" value="Delete Account" />
+    </form>
+<% end %>

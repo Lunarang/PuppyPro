@@ -1,2 +1,22 @@
-# if logged in, shows user's personal skill library with option to view entire database index
-# if not logged in, shows entire database index
+<h1>Your Skill Library</h1>
+
+# Alphabetize list before giving to view...
+<dl>
+    <% @user.skills.each do |skill| %>
+        <dt><a href="/skills/<%= skill.id %>"><%= skill.name %></a></dt>
+            <dd><%= skill.description %></dd>
+
+        <dt>Trained Pups</dt>
+            <dd>
+                <ul>
+                <% skill.dogs.each do |dog| %>
+                    <li><%= dog.name %></li>
+                <% end %>
+                </ul>
+            </dd>
+    <% end %>
+</dl>
+
+<form action="/skills/new" method="GET">
+<input type="submit" value="Create Skill">
+</form>

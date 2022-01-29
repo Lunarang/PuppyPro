@@ -5,5 +5,5 @@ erin = User.create(name: "Erin", email: "erin.smells@gmail.com", password: "pass
 steve = User.create(name: "Steve", email: "steviewonder@gmail.com", password: "bucky12")
 
 Dog.create(name: "Dodger", sex: "female", dob: Date.new(2019, 11, 30), user_id: "#{erin.id}")
-Dog.create(name: "Buccaroo", sex: "male", dob: Date.new(2020, 08, 26), user_id: "#{steve.id}")
-Dog.create(name: "Goose", sex: "male", dob: Date.new(2015, 02, 03), user_id: "#{mel.id}")
+Dog.create(name: "Buccaroo", sex: "male", dob: Date.new(2020, 8, 26), user_id: "#{steve.id}")
+Dog.create(name: "Goose", sex: "male", dob: Date.new(2015, 2, 3), user_id: "#{mel.id}")

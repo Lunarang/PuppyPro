@@ -1,33 +1,33 @@
-<h1><%= @shown_user.name %>'s Profile</h1>
+<div class="col-md-8 col-md-offset-2">
+<h2><%= @shown_user.name %>'s Profile</h2>
 
-<% if Helpers.belong_to_user?(session) %>
-<a href="/users/<%= @shown_user.id %>/edit" method="GET">Edit Profile</a>
-<% end %>
+    <div class="content">
+        <h3>Pups</h3>
+        <ul>
+            <% @shown_user.dogs.each do |dog| %>
+            <li><a href="/dogs/<%= dog.id %>"><%= dog.name %></a></li>
+                <dl>
+                    <dt>Sex</dt> <dd><%= dog.sex %></dd>
+                    <dt>Birthday</dt> <dd><%= dog.dob %></dd>
+                    <dt>Age</dt> <dd><%= dog.age %></dd>
+                    <dt>Skills Mastered</dt> <dd><%= dog.mastered_skills.count %></dd>
+                </dl>
+            <% end %>
+        </ul> 
 
-<h2>Pups</h2>
-<ul>
-    <% @shown_user.dogs.each do |dog| %>
-    <li><a href="/dogs/<%= dog.id %>"><%= dog.name %></a></li>
+        <h3>Skills</h3>
         <dl>
-            <dt>Sex</dt> <dd><%= @dog.sex %></dd>
-            <dt>Birthday</dt> <dd><%= @dog.dob %></dd>
-            <dt>Age</dt> <dd><%= @dog.age %></dd>
-            <dt>Skills Mastered</dt> <dd><%= @dog.mastered.count %></dd>
+            <% @shown_user.skills.each do |skill| %>
+                <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
+                <dd><%= skill.description %></dd>
+            <% end %>
         </dl>
-    <% end %>
-</ul> 
 
-<h2>Skills</h2>
-<dl>
-    <% @shown_user.skills.each do |skill| %>
-        <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
-        <dd><%= skill.description %></dd>
-    <% end %>
-</dl>
-
-<% if Helpers.belong_to_user?(session) %>
-    <form method="POST" action="/users/<%= @shown_user.id %>">
-    <input type="hidden" name="_method" value="DELETE" />
-    <input type="submit" value="Delete Account" />
-    </form>
-<% end %>
+        <% if @shown_user.id = current_user.id %>
+            <form method="POST" action="/users/<%= @shown_user.id %>">
+            <input type="hidden" name="_method" value="DELETE" />
+            <input type="submit" value="Delete Account" />
+            </form>
+        <% end %>
+    </div>
+</div>

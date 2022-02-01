@@ -1,14 +1,20 @@
-<h1>Log in below:</h1>
+<header><a href="/"><img src="images/PuppyProLogo.jpg" class="center"></a></header>
 
-<form action='/login' method="POST">
+<div class="col-md-8 col-md-offset-2">
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" autocomplete="username" name="email" required>
+  <div class="formbox">
+    <h3>Log in below:</h3>
+    <form action='/login' method="POST">
 
-  <label for="password">Password:</label>
-  <input type="password" id="current-password" autocomplete="current-password" name="password" required>
+      <div class="label-align"><label for="email">Email:</label></div>
+      <input type="email" id="email" autocomplete="username" name="email" required>
 
-  <input type="submit" value="Log In">
-</form>
+      <div class="label-align"><label for="password">Password:</label></div>
+      <input type="password" id="current-password" autocomplete="current-password" name="password" required>
 
-<a href="/signup">Don't have an account yet? Sign up instead.</a>
+      <input type="submit" value="Log In">
+    </form>
+
+    Don't have an account yet? <a href="/signup">Sign Up</a> instead.
+  </div>
+</div>

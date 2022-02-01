@@ -1,32 +1,31 @@
-<h1>Welcome <%= @user.name %></h1>
-<br/>
+<h1>Your Puppies</h1>
 
-<div class="content">
-    <h2>Your Pups:</h2>
+<% if @user.dogs.blank? %>
 
-    <% if @user.dogs.blank? %>
-
-        <p>Uh oh! Looks like you don't have any puppies yet!</p>
-        <form action="/dogs/new" method="GET">
+    <div class="formbox">
+        Uh oh! Looks like you don't have any puppies yet!
+        <form action="/dog/new" method="GET">
         <input type="submit" value="Add Puppy!">
         </form>
+    </div>
 
-    <% else %>
-
+<% else %>
+    <div class="flex-display">
         <% @user.dogs.each do |dog| %>
-            <div class="info card">
+        <div class="infocard">
 
             <h3><a href="/dogs/<%= dog.id %>" method="GET"><%= dog.name %></a></h3>
             <dl>
                 <dt>Sex</dt> <dd><%= dog.sex %></dd>
-                <dt>Birthday</dt> <dd><%= dog.dob %></dd>
+                <dt>Bday</dt> <dd><%= dog.dob %></dd>
                 <dt>Age</dt> <dd><%= dog.age %></dd>
             </dl>
 
             <h4>Skills</h4>
             <% if dog.skills == [] %>
 
-                <p>Your dog doesn't have any mad skills yet! Let's teach them a new trick by creating a skill or adding one from the Skill Library...
+                <div class="formbox">
+                    Your dog doesn't have any mad skills yet! Let's teach them a new trick by creating a skill or adding one from the Skill Library...
                     <form action="/skills/new" method="GET">
                     <input type="submit" value="Create Skill">
                     </form>
@@ -34,7 +33,7 @@
                     <form action="/dogs/<%= dog.id %>/edit" method="GET">
                     <input type="submit" value="Add Skill">
                     </form>
-                </p>
+                </div>
 
             <% else %>
 
@@ -50,26 +49,23 @@
                 <% end %>
                 </dl>
 
-                <a href="/dogs/<%= dog.id %>">view all skills</a>
-
             <% end %>
 
             <h4>Mastery Timeline</h4>
-
+            <p>Coming soon...</p>
             <div class="timeline">
 
                 <% dog.mastered_skills do |skill| %>
                     <% index = 0 %>
                     <% until index == 5 %>
-                        <div class="container left">
+                        <div class="container-left">
                             <div class="content">
                                 <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
-                                
                                 <p><%= skill[index].date_mastered %></p>
                             </div>
                         </div>
                         <% index += 1 %>
-                        <div class="container right">
+                        <div class="container-right">
                             <div class="content">
                                 <a href="/skills/<%= skill[index].id %>" method="GET"><%= skill[index].name %></a>
                                 <p><%= skill[index].date_mastered %></p>
@@ -81,20 +77,16 @@
 
             </div>
 
-            <form action="/dogs/<%= dog.id %>" method="GET">
-            <input type="submit" value="View Profile" />
-            </form>
+            <a class="button2" href="/dogs/<%= dog.id %>">View Profile</a>
+        </div>
         <% end %>
+    </div>
+<% end %>
 
-    <% end %>
-
-    <% if !@user.dogs.blank? %>
-
-        <form action="/dogs/new" method="GET">
-            <input type="submit" value="Add ANOTHER Puppy!" />
-        </form>
+<% if !@user.dogs.blank? %>
     
-    <% end %>
+    <form action="/dog/new" method="GET">
+        <input type="submit" value="Add ANOTHER Puppy!" />
+    </form>
 
-</div>
-<br/>
+<% end %>

@@ -1,37 +1,41 @@
 <h1>Edit <%= @skill.name %> Info</h1>
+<div class="col-md-8 col-md-offset-2">
 
-<form action='/skills/<%= @skill.id %>/edit' method="POST">
-    <input id="hidden" type="hidden" name="_method" value="patch">
+    <div class="formbox">
+        <form action='/skills/<%= @skill.id %>' method="POST">
+            <input id="hidden" type="hidden" name="_method" value="patch">
 
-    <label for="name">Skill Name:</label>
-    <input type="text" id="name" name="skill[name]" value="<%= @skill.name %>" required>
+            <label for="name">Skill Name:</label>
+            <input type="text" id="name" name="skill[name]" value="<%= @skill.name %>" required>
 
-    <label for="skilldesc">Description:</label>
-    <input type="text" id="skilldesc" name="skill[description]" value="<%= @skill.description %>" required>
+            <label for="skilldesc">Description:</label>
+            <input type="text" id="skilldesc" name="skill[description]" value="<%= @skill.description %>" required>
 
-    <label for="skillmethod">Method:</label>
-    <textarea id="skillmethod" name="skill[method]"
-        rows="5" cols="33" wrap="hard" 
-        placeholder="<% if @skill.method.blank? %>What are the steps to teach your dog this skill? (optional)<% else %><%= @skill.method %><% end %>">
-    </textarea>
+            <label for="skillmethod">Method:</label>
+            <textarea id="skillmethod" name="skill[method]"
+                rows="5" cols="33" wrap="hard" 
+                placeholder="<% if @skill.method.blank? %>What are the steps to teach your dog this skill? (optional)<% else %><%= @skill.method %><% end %>">
+            </textarea>
 
-    <fieldset>
-        <legend>Choose which of your dogs know this skill...</legend>
-        <% @user.dogs.each do |dog| %>
-            <input type="checkbox" name="skill[dog_ids][]" id="dog" value="<%= dog.id %>"
-            <% if dog.skills.include?(@skill) %>checked<% end %> >
-            <label for="dog"><%= dog.name %></label>
+            <fieldset>
+                <legend>Choose which of your dogs know this skill...</legend>
+                <% @user.dogs.each do |dog| %>
+                    <input type="checkbox" name="skill[dog_ids][]" id="dog" value="<%= dog.id %>"
+                    <% if dog.skills.include?(@skill) %>checked<% end %> >
+                    <label for="dog"><%= dog.name %></label>
 
-            <label for="level">Choose skill mastery level:</label>
-            <select name="dogskill[<%= dog.id %>]" id="level">
-                <option value="novice" <% if @skill.level(@dog.id) == "novice" %>selected<% end %> >Novice</option>
-                <option value="beginner" <% if @skill.level(@dog.id) == "beginner" %>selected<% end %> >Beginner</option>
-                <option value="competent" <% if @skill.level(@dog.id) == "competent" %>selected<% end %> >Competent</option>
-                <option value="proficient" <% if @skill.level(@dog.id) == "proficient" %>selected<% end %> >Proficient</option>
-                <option value="expert" <% if @skill.level(@dog.id) == "expert" %>selected<% end %> >Expert</option>
-            </select>
-        <% end %>
-    </fieldset>
+                    <label for="level">Choose skill mastery level:</label>
+                    <select name="dog_lvls[<%= dog.id %>]" id="level">
+                        <option value="novice" <% if @skill.level(dog.id) == "novice" %>selected<% end %> >Novice</option>
+                        <option value="beginner" <% if @skill.level(dog.id) == "beginner" %>selected<% end %> >Beginner</option>
+                        <option value="competent" <% if @skill.level(dog.id) == "competent" %>selected<% end %> >Competent</option>
+                        <option value="proficient" <% if @skill.level(dog.id) == "proficient" %>selected<% end %> >Proficient</option>
+                        <option value="expert" <% if @skill.level(dog.id) == "expert" %>selected<% end %> >Expert</option>
+                    </select>
+                <% end %>
+            </fieldset>
 
-    <input type="submit" value="Update Skill">
-</form>
+            <input type="submit" value="Update Skill">
+        </form>
+    </div>
+</div>

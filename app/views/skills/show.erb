@@ -1,30 +1,34 @@
-<h1>Skill Record</h1>
+<div class="col-md-8 col-md-offset-2">
+<h2>Skill Record</h2>
 
-<% if Helpers.belong_to_user?(session) %>
-<a href="/skills/<%= @skill.id %>/edit" method="GET">Edit Skill</a>
-<% end %>
-
-<h2><%= @skill.name %></h2>
-<% if !Helpers.belong_to_user?(session) %>
-Creator: <%= @creator.name %>
-<% end %>
-Description: <%= @skill.description %>
-Method: <%= @skill.method %>
-
-<h3>Trained Pups</h3>
-<ul>
-    <% @skill.dogs.select { |dog| dog.user_id == @user.id }
-    .each do |dog| %>
-    <li><%= dog.name %></li>
-    <ul>
-        <li>Mastery Level: <%= @skill.level(dog.id) %> </li>
-    </ul>
+  <div class="content">
+    <% if @skill.user_id == @user.id %>
+    <a href="/skills/<%= @skill.id %>/edit" method="GET">Edit Skill</a>
     <% end %>
-</ul>
 
-<% if Helpers.belong_to_user?(session) %>
-  <form method="POST" action="/skills/<%= @skill.id %>">
-    <input type="hidden" name="_method" value="DELETE" />
-    <input type="submit" value="Delete Skill" />
-  </form>
-<% end %>
+    <h3><%= @skill.name %></h3>
+    <% if @skill.user_id != @user.id %>
+    Creator: <%= @creator.name %>
+    <% end %>
+    Description: <%= @skill.description %>
+    Method: <%= @skill.method %>
+
+    <h3>Trained Pups</h3>
+    <ul>
+        <% @skill.dogs.select { |dog| dog.user_id == @user.id }
+        .each do |dog| %>
+        <li><%= dog.name %></li>
+        <ul>
+            <li>Mastery Level: <%= @skill.level(dog.id) %> </li>
+        </ul>
+        <% end %>
+    </ul>
+
+    <% if @skill.user_id == @user.id %>
+      <form method="POST" action="/skills/<%= @skill.id %>">
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="Delete Skill" />
+      </form>
+    <% end %>
+  </div>
+</div>

@@ -1,32 +1,36 @@
-<h1>Puppy Profile</h1>
+<div class="col-md-8 col-md-offset-2">
+<h2>Puppy Profile</h2>
 
-<% if Helpers.belong_to_user?(session) %>
-<a href="/dogs/<%= @dog.id %>/edit" method="GET">Edit Puppy</a>
-<% end %>
-
-<h2><%= @dog.name %></h2>
-<% if !Helpers.belong_to_user?(session) %>
-Owner: <%= @owner.name %>
-<% end %>
-Sex: <%= @dog.sex %>
-Birthday: <%= @dog.dob %>
-Age: <%= @dog.age %>
-
-<h3>Acquired Skills</h3>
-
-<dl>
-    <% @dog.skills.each do |skill| %>
-        <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
-        <dd><%= skill.level(@dog.id) %></dd>
-        <dd><%= skill.description %></dd>
-        <dd><%= skill.method %></dd>
-
+  <div class="content">
+    <% if @dog.user_id == @user.id %>
+    <a href="/dogs/<%= @dog.id %>/edit" method="GET">Edit Puppy</a>
     <% end %>
-</dl>
 
-<% if Helpers.belong_to_user?(session) %>
-  <form method="POST" action="/dogs/<%= @dog.id %>">
-    <input type="hidden" name="_method" value="DELETE" />
-    <input type="submit" value="Delete Puppy" />
-  </form>
-<% end %>
+    <h3><%= @dog.name %></h3>
+    <% if @dog.user_id != @user.id %>
+    Owner: <%= @owner.name %>
+    <% end %>
+    Sex: <%= @dog.sex %>
+    Birthday: <%= @dog.dob %>
+    Age: <%= @dog.age %>
+
+    <h3>Acquired Skills</h3>
+
+    <dl>
+        <% @dog.skills.each do |skill| %>
+            <dt><a href="/skills/<%= skill.id %>" method="GET"><%= skill.name %></a></dt>
+            <dd><%= skill.level(@dog.id) %></dd>
+            <dd><%= skill.description %></dd>
+            <dd><%= skill.method %></dd>
+
+        <% end %>
+    </dl>
+
+    <% if @dog.user_id == @user.id %>
+      <form method="POST" action="/dogs/<%= @dog.id %>">
+        <input type="hidden" name="_method" value="DELETE" />
+        <input type="submit" value="Delete Puppy" />
+      </form>
+    <% end %>
+  </div>
+</div>

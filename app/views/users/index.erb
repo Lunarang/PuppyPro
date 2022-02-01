@@ -1,16 +1,19 @@
-<h1>Current Users:</h1>
+<div class="col-md-8 col-md-offset-2">
+  <h2>Current Users:</h2>
 
-# Alphabetize user list before giving to view...
-<% User.all.each do |user| %>
-    <ul>
-        <li><a href="/users/<%= user.id %>"><%= user.name %></a></li>
-            <dl>
-                <dt>Pups</dt>
-                <% user.dogs.each do |dog| %>
-                    <dd>
-                    <a href="/dogs/<%= dog.id %>"><%= dog.name %></a>
-                    </dd>
-                <% end %>
-            </dl> 
-    </ul>
-<% end %>
+  <div class="content">
+        <% User.all.sort_by { |user| user.name.downcase }.each do |user| %>
+            <ul>
+                <li><a href="/users/<%= user.id %>"><%= user.name %></a></li>
+                    <dl>
+                        <dt>Pups</dt>
+                        <% user.dogs.each do |dog| %>
+                            <dd>
+                            <a href="/dogs/<%= dog.id %>"><%= dog.name %></a>
+                            </dd>
+                        <% end %>
+                    </dl> 
+            </ul>
+        <% end %>
+  </div>
+</div>

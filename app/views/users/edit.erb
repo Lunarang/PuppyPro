@@ -1,32 +1,36 @@
 <h1>Edit Profile</h1>
+<div class="col-md-8 col-md-offset-2">
 
-<form action='/users/<%= @user.id %>/edit' method="POST">
-    <input id="hidden" type="hidden" name="_method" value="patch">
+  <div class="formbox">
+        <form action='/users/<%= @user.id %>' method="POST">
+            <input id="hidden" type="hidden" name="_method" value="patch">
 
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="name" value="<%= @user.name %>" required>
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="user[name]" value="<%= @user.name %>" required>
 
-    <label for="email">Email:</label>
-    <input type="email" id="email" name="email" value="<%= @user.email %>" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="user[email]" value="<%= @user.email %>" required>
 
-    <label for="current-password">Password:</label>
-    <input type="password" id="current-password" name="password" autocomplete="current-password" required>
+            <label for="current-password">Password:</label>
+            <input type="password" id="current-password" name="user[password]" autocomplete="current-password" required>
 
-    <fieldset>
-        <legend>My Pups:</legend>
-            <% @user.dogs.each do |dog| %>
-                <input type="checkbox" name="user[dog_ids][]" id="dog" value="<%= dog.id %>" checked>
-                <label for="dog"><%= dog.name %></label>
-            <% end %>
-    </fieldset>
+            <fieldset>
+                <legend>My Pups:</legend>
+                    <% @user.dogs.each do |dog| %>
+                        <input type="checkbox" name="user[dog_ids][]" id="dog" value="<%= dog.id %>" checked>
+                        <label for="dog"><%= dog.name %></label>
+                    <% end %>
+            </fieldset>
 
-    <fieldset>
-        <legend>My Skills:</legend>
-            <% @user.skills.each do |skill| %>
-                <input type="checkbox" name="user[skill_ids][]" id="skill" value="<%= skill.id %>" checked>
-                <label for="skill"><%= skill.name %></label>
-            <% end %>
-    </fieldset>
+            <fieldset>
+                <legend>My Skills:</legend>
+                    <% @user.skills.each do |skill| %>
+                        <input type="checkbox" name="user[skill_ids][]" id="skill" value="<%= skill.id %>" checked>
+                        <label for="skill"><%= skill.name %></label>
+                    <% end %>
+            </fieldset>
 
-    <input type="submit" value="Save">
-</form>
+            <input type="submit" value="Save">
+        </form>
+  </div>
+</div>

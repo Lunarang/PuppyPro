@@ -1,59 +1,63 @@
 <h1>Add New Puppy</h1>
+<div class="col-md-8 col-md-offset-2">
 
-<form action='/dogs/new' method="POST">
-    <label for="name">Name:</label>
-    <input type="text" id="name" name="dog[name]" required>
+    <div class="formbox">
+        <form action='/dogs' method="POST">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="dog[name]" required>
 
-    <fieldset>
-        <legend>Sex:</legend>
-            <input type="radio" id="male" name="dog[sex]" value="male" required>
-            <label for="male">Male</label>
+            <fieldset>
+                <legend>Sex:</legend>
+                    <input type="radio" id="male" name="dog[sex]" value="male" required>
+                    <label for="male">Male</label>
 
-            <input type="radio" id="female" name="dog[sex]" value="female">
-            <label for="female">Female</label>
-    </fieldset>
+                    <input type="radio" id="female" name="dog[sex]" value="female">
+                    <label for="female">Female</label>
+            </fieldset>
 
-    <label for="dob">Date of Birth:</label>
-    <input type="date" id="dob" name="dog[dob]" required>
+            <label for="dob">Date of Birth:</label>
+            <input type="date" id="dob" name="dog[dob]" required>
 
-    <label for="skills">Acquired Skills:</label>
-    <% @user.skills.each do |skill| %>
-        <input type="checkbox" id="skills" name="dogskill[skill_ids][]" value="<%= skill.id %>"><%= skill.name %></input>
+            <label for="skills">Acquired Skills:</label>
+            <% @user.skills.each do |skill| %>
+                <input type="checkbox" id="skills" name="dog[skill_ids][]" value="<%= skill.id %>"><%= skill.name %></input>
 
-        <label for="level">Choose skill mastery level:</label>
-        <select name="dogskill[skill_lvls][<%= skill.id %>]" id="level">
-            <option value="novice">Novice</option>
-            <option value="beginner">Beginner</option>
-            <option value="competent">Competent</option>
-            <option value="proficient">Proficient</option>
-            <option value="expert">Expert</option>
-        </select>
-    <% end %>
+                <label for="level">Choose skill mastery level:</label>
+                <select name="skill_lvls[<%= skill.id %>]" id="level">
+                    <option value="novice">Novice</option>
+                    <option value="beginner">Beginner</option>
+                    <option value="competent">Competent</option>
+                    <option value="proficient">Proficient</option>
+                    <option value="expert">Expert</option>
+                </select>
+            <% end %>
 
-    <fieldset>
-        <legend>...And/or create a new skill!</legend>
-            <label for="skillname">Skill Name:</label>
-            <input type="text" id="skillname" name="skill[name]">
+            <fieldset>
+                <legend>...And/or create a new skill!</legend>
+                    <label for="skillname">Skill Name:</label>
+                    <input type="text" id="skillname" name="skill[name]">
 
-            <label for="level">Mastery Level:</label>
-            <select name="skill[level]" id="level">
-                <option value="novice">Novice</option>
-                <option value="beginner">Beginner</option>
-                <option value="competent">Competent</option>
-                <option value="proficient">Proficient</option>
-                <option value="expert">Expert</option>
-            </select>
+                    <label for="level">Mastery Level:</label>
+                    <select name="new_skill_lvl" id="level">
+                        <option value="novice">Novice</option>
+                        <option value="beginner">Beginner</option>
+                        <option value="competent">Competent</option>
+                        <option value="proficient">Proficient</option>
+                        <option value="expert">Expert</option>
+                    </select>
 
-            <label for="skilldesc">Description:</label>
-            <input type="text" id="skilldesc" name="skill[description]">
+                    <label for="skilldesc">Description:</label>
+                    <input type="text" id="skilldesc" name="skill[description]">
 
-            <label for="skillmethod">Method:</label>
-            <textarea id="skillmethod" name="skill[method]"
-                rows="5" cols="33" wrap="hard" 
-                placeholder="What are the steps to teach your dog this skill? (optional)">
-            </textarea>
+                    <label for="skillmethod">Method:</label>
+                    <textarea id="skillmethod" name="skill[method]"
+                        rows="5" cols="33" wrap="hard" 
+                        placeholder="What are the steps to teach your dog this skill? (optional)"
+                    ></textarea>
 
-    </fieldset>
+            </fieldset>
 
-    <input type="submit" value="Add Pup!">
-</form>
+            <input type="submit" value="Add Pup!">
+        </form>
+    </div>
+</div>

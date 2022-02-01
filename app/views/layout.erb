@@ -12,39 +12,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/stylesheets/main.css" />
+    <link href='https://fonts.googleapis.com/css?family=Annie Use Your Telescope' rel='stylesheet'>
   </head>
 
   <body>
-    <div class="wrapper">
-
+    <% if current_path != '/login' && current_path != '/signup' %>
       <div class="sidebar">
-        <% if Helpers.logged_in?(session) %>
-          <% user = Helpers.current_user(session) %>
+        <% if logged_in? == true %>
 
-          <h3><%= user.name %></h3>
-          <a href="/users/<%= user.id %>/edit">Edit Account</a>
-
+          <h3>Welcome back, <%= current_user.name %>!</h3>
           <ul>
-              <li><a href="/home">Puppies</a></li>
-              <li><a href="/library">Skill Library</a></li>
-              <li><a href="/logout">Log Out</a></li>
+            <li><a href="/users/<%= current_user.id %>/edit">Edit Account</a></li>
+            <li><a href="/home">Puppies</a></li>
+            <li><a href="/library">Skill Library</a></li>
+            <li><a href="/logout">Log Out</a></li>
           </ul>
 
         <% else %>
 
-          <h3>Welcome!</h3>
+          <h3>Hello There!</h3>
           <p>To continue, please sign up or log in.</p>
-
-          <form action="/signup" method="GET">
-            <input type="submit" value="Sign Up">
-          </form>
-
-          <form action="/login" method="GET">
-            <input type="submit" value="Log In">
-          </form>
-
+          <div class="flex-display">
+            <div class="flex-child"><a class="button" href="/signup">Sign Up</a></div>
+            <div class="flex-child"><a class="button2" href="/login">Log In</a></div>
+          </div>
         <% end %>
       </div>
+    <% end %>
+
+    <div class="wrapper">
+      <div class="container">
 
       <% %w[notice error warning alert info].each do |key| %>
         <% if flash[key] %>
@@ -53,11 +50,12 @@
           </div>
         <% end %>
       <% end %>
-
+      
         <%= yield %>
 
+      </div>
       <footer class="branding">
-        <small>&copy; 2022 <strong>PuppyPro</strong></small>
+        <small>&copy; 2022 <strong><a href="/">PuppyPro</a></strong></small>
       </footer>
     </div>
 

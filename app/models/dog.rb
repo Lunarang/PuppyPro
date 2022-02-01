@@ -1,6 +1,6 @@
 class Dog < ActiveRecord::Base
     belongs_to :user
-    has_many :dog_skills, :dependent => :destroy
+    has_many :dog_skills
     has_many :skills, through: :dog_skills
 
     validates :name, presence: true

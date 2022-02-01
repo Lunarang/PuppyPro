@@ -1,17 +1,22 @@
-<h1>Please complete all the fields below to create an account:</h1>
+<header><a href="/"><img src="images/PuppyProLogo.jpg" class="center"></a></header>
+  
+<div class="col-md-8 col-md-offset-2">
 
-<form action='/signup' method="POST">
+  <div class="formbox">
+    <h3>Please complete all fields to create an account:</h3>
+    <form action='/signup' method="POST">
+      <div class="label-align"><label for="name">Name:</label></div>
+      <input type="text" id="name" name="user[name]" required>
 
-  <label for="name">Name:</label>
-  <input type="text" id="name" name="user[name]" required>
+      <div class="label-align"><label for="email">Email:</label></div>
+      <input type="email" id="email" name="user[email]" required>
 
-  <label for="email">Email:</label>
-  <input type="email" id="email" name="user[email]" required>
+      <div class="label-align"><label for="password">Password:</label></div>
+      <input type="password" id="password" name="user[password]" required>
 
-  <label for="password">Password:</label>
-  <input type="password" id="password" name="user[password]" required>
+      <div class="submit-wrap"><input type="submit" value="Sign Up"></div>
+    </form>
 
-  <input type="submit" value="Sign Up">
-</form>
-
-<a href="/login">Already have an account? Login instead.</a>
+    Already have an account? <a href="/login">Log In</a> instead.
+  </div>
+</div>

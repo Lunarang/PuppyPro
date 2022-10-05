@@ -11,7 +11,6 @@ Puppy Pro is a CRUD capable and MVC structured app using Sinatra framework. Esse
 📈 View a visual timeline of mastered skills  
 
 <b>Curious about this project?</b>  
-
 :books: Read about the process on my [blog](https://codebaby.hashnode.dev/my-first-sinatra-project-puppy-pro)  
 
 ## Install :sparkles:

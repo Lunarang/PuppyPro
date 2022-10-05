@@ -2,13 +2,13 @@
 
 Puppy Pro is a CRUD capable and MVC structured app using Sinatra framework. Essentially, it's a simple Content Management System (CMS). It was created with the intent to give the user a way to track their puppy's training progress. The initial goals of the app were to allow the user to:
 
-✏️ Sign up for an account
-🐶 Add/remove multiple puppies
-🔧Create/delete puppy skills (sit, down, speak, etc)
-❓ Manage what skills their puppy knows
-⬆️ Manage the proficiency level of said skills
-🌟 View a list of mastered skills
-📈 View a visual timeline of mastered skills
+✏️ Sign up for an account  
+🐶 Add/remove multiple puppies  
+🔧Create/delete puppy skills (sit, down, speak, etc)  
+❓ Manage what skills their puppy knows  
+⬆️ Manage the proficiency level of said skills  
+🌟 View a list of mastered skills  
+📈 View a visual timeline of mastered skills  
 
 <b>Curious about this project?</b>  
 
